@@ -1,0 +1,124 @@
+//
+//  YCAvailableAlert.m
+//  iAlarm
+//
+//  Created by li shiyong on 11-2-28.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
+//
+
+#import "UIAlertView+YC.h"
+#import "YClocationServicesUsableAlert.h"
+#import "LocalizedStringYCLib.h"
+
+
+@implementation YClocationServicesUsableAlert
+
+- (CLLocationManager *)locationManager{
+	if (locationManager == nil) {
+		locationManager = [[CLLocationManager alloc] init];
+		locationManager.delegate = self;
+		locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+	}
+	return locationManager;
+}
+
+#pragma mark - 
+#pragma mark - CLLocationManagerDelegate 
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation{
+	[manager stopUpdatingLocation];
+	//定位服务已经开启，并授权
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+	[manager stopUpdatingLocation];
+	
+	//定位服务已经开启，但未授权
+	if ([error code] == 1 && !isAlreadyAlert)  //error code == 1是未授权
+	{
+        //TODO
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:kALTextNeedLocationServicesTitle message:kALTextNeedLocationServicesBody delegate:nil cancelButtonTitle:KTitleOK otherButtonTitles:nil];
+		[alertView show];
+        [alertView release];
+        isAlreadyAlert = YES;
+	}
+	
+}
+
+
+//检测定位服务状态。如果不可用或未授权，弹出对话框
+- (void)show{
+    [self showWaitUntilBecomeKeyWindow:nil afterDelay:0.1];
+}
+
+- (void)showWaitUntilBecomeKeyWindow:(UIWindow*)waitingWindow afterDelay:(NSTimeInterval)delay{
+    
+    //检查定位服务
+	BOOL enabledLocation = [CLLocationManager locationServicesEnabled];
+    
+    
+	if (enabledLocation) {
+		if (![CLLocationManager respondsToSelector:@selector(authorizationStatus)]) //iOS4.2版本后才支持
+		{
+			isAlreadyAlert = NO;
+			[self.locationManager startUpdatingLocation];
+			[self.locationManager performSelector:@selector(stopUpdatingLocation) withObject:nil afterDelay:3.0];//约定关闭，防止不能被关闭
+		}else{
+			enabledLocation = ([CLLocationManager authorizationStatus] ==kCLAuthorizationStatusAuthorized);
+		}
+	}
+	
+	if (!enabledLocation) {
+        
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] > 4.9) {
+            // iOS 5 code
+            if (!alert) 
+                alert = [[UIAlertView alloc] initWithTitle:kALTextNeedLocationServicesTitle
+                                                   message:kALTextNeedLocationServicesBody 
+                                                  delegate:self
+                                         cancelButtonTitle:KTitleSettings
+                                         otherButtonTitles:KTitleCancel,nil];
+            
+            
+            
+        }else {
+            // iOS 4.x code            
+            if (!alert) 
+                alert = [[UIAlertView alloc] initWithTitle:kALTextNeedLocationServicesTitle
+                                                   message:kALTextNeedLocationServicesBody 
+                                                  delegate:nil
+                                         cancelButtonTitle:KTitleOK
+                                         otherButtonTitles:nil];
+            
+            
+        }
+        
+        if (waitingWindow == nil) {
+            [alert show];
+        }else{
+            [alert showWaitUntilBecomeKeyWindow:waitingWindow afterDelay:delay];
+        }
+        
+	}
+    
+    
+}
+
+- (void)cancelAlertWithAnimated:(BOOL)animated{
+    NSInteger cancelButtonIndex = alert.cancelButtonIndex;
+    [alert dismissWithClickedButtonIndex:cancelButtonIndex animated:animated];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{    
+    if ([[alertView buttonTitleAtIndex:buttonIndex] isEqualToString:KTitleSettings]) {
+        NSString *str = @"prefs:root=LOCATION_SERVICES"; //打开设置中的定位
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+    }
+}
+
+- (void)dealloc {
+	[locationManager release];
+    [alert release];
+    [super dealloc];
+}
+
+@end
