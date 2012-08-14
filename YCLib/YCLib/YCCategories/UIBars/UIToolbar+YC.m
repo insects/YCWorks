@@ -10,4 +10,16 @@
 
 @implementation UIToolbar (YC)
 
+- (void)setYCBarStyle:(YCBarStyle)barStyle forToolbarPosition:(UIToolbarPosition)topOrBottom{
+    if (barStyle >= YCBarStyleSilver) {
+        if ([self respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
+            //bar背景
+            UIImage *bgImage = [UIImage imageNamed:@"YCToolbarSilverBackground.png"];
+            [self setBackgroundImage:bgImage forToolbarPosition:topOrBottom barMetrics:UIBarMetricsDefault];
+        }
+    }else {
+        [self setBarStyle:barStyle];
+    }
+}
+
 @end

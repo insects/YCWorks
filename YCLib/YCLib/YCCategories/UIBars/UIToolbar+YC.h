@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIBar.h"
 
 @interface UIToolbar (YC)
+
+/*
+ * 更换bar的背景
+ * 5.0版本以上有效
+ */
+- (void)setYCBarStyle:(YCBarStyle)barStyle forToolbarPosition:(UIToolbarPosition)topOrBottom;
 
 @end

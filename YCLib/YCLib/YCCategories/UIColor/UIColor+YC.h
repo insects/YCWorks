@@ -109,4 +109,10 @@
  **/
 + (UIColor *)navigationBarSilverTitleColor;
 
+/**
+ 银色的barButtonItem的tintColor
+ 108, 115, 122, 255
+ **/
++ (UIColor *)barButtonItemSilverTintColor;
+
 @end

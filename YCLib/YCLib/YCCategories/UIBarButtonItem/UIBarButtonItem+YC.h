@@ -8,6 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum {
+    YCBarButtonItemStyleDefault   = 0,
+    YCBarButtonItemStyleBlack ,
+    YCBarButtonItemStyleSilver
+} YCBarButtonItemStyle;
+
 @interface UIBarButtonItem (YC)
+
+/*
+ * 更换BarButtonItem的背景、tintColor
+ * 5.0版本以上有效
+ */
+- (void)setYCStyle:(YCBarButtonItemStyle)barButtonItemStyle;
+
+
+/*
+ * “返回”按钮，如果title 为 nil，那么使用默认“Back”
+ * 4.0版本以上有效
+ */
+- (id)initWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle;
+
 
 @end

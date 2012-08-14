@@ -92,5 +92,8 @@
     return [self colorWithIntRed:113 intGreen:120 intBlue:128 intAlpha:255];
 }
 
++ (UIColor *)barButtonItemSilverTintColor{
+    return [self colorWithIntRed:108 intGreen:115 intBlue:122 intAlpha:255];
+}
 
 @end

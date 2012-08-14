@@ -11,6 +11,10 @@
 
 @interface UINavigationBar (YC)
 
+/*
+ * 更换bar的背景
+ * 5.0版本以上有效
+ */
 - (void)setYCBarStyle:(YCBarStyle)barStyle;
 
 @end

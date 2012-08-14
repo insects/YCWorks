@@ -88,5 +88,16 @@
     return searchingView ? YES : NO;
 }
 
+- (void)setYCBarStyle:(YCBarStyle)barStyle{
+    if (barStyle >= YCBarStyleSilver) {
+        if ([self respondsToSelector:@selector(setBackgroundImage:)]) {
+            //bar背景
+            UIImage *bgImage = [UIImage imageNamed:@"YCSearchBarSilverBackground.png"];
+            [self setBackgroundImage:bgImage];
+        }
+    }else {
+        [self setBarStyle:barStyle];
+    }
+}
 
 @end
