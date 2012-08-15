@@ -17,4 +17,9 @@
  */
 - (void)setYCBarStyle:(YCBarStyle)barStyle;
 
+/*
+ * 用来因为leftBarButtonItem或rightBarButtonItem 改变，而调整topItem的titleView的位置。
+ */
+- (void)layoutTitleView;
+
 @end

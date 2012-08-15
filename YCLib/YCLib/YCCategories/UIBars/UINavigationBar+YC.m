@@ -35,4 +35,40 @@
     }
 }
 
+- (void)layoutTitleView{
+    /*
+    //思路：如果没有BarButtonItem，那么titleView距离边5.0。左右都是这样。
+    CGRect titleViewFrame = self.topItem.titleView.frame;
+    
+    //左
+    CGFloat titleViewX = titleViewFrame.origin.x;
+    CGFloat titleViewWAddL = 0.0; //因leftBarButtonItem消失，长度的增加
+    if (self.topItem.leftBarButtonItem == nil) {
+        titleViewX = 5.0;
+        titleViewWAddL = titleViewFrame.origin.x - titleViewX;
+    }
+    
+    //右
+    CGFloat titleViewWAddR = 0.0;//因RightBarButtonItem消失，长度的增加
+    if (self.topItem.rightBarButtonItem == nil) {
+        titleViewWAddR = (self.bounds.size.width - 5) - (titleViewFrame.origin.x + titleViewFrame.size.width);
+    }
+    
+    CGRect titleViewFrame1 = titleViewFrame;
+    titleViewFrame1.origin.x = titleViewX;
+    
+    CGRect titleViewFrame2 = titleViewFrame1;
+    titleViewFrame2.size.width = titleViewFrame2.size.width + titleViewWAddL + titleViewWAddR;
+    */
+    
+   
+    CGRect titleViewFrameNew = CGRectInset(self.bounds, 5, 0);
+    [UIView transitionWithView:self duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.topItem.titleView.frame = titleViewFrameNew;
+    } completion:NULL];
+    
+    
+}
+
+
 @end

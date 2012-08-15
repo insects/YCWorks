@@ -19,7 +19,7 @@
 		
 		
 		CATransition *animation = [CATransition animation];    
-		[animation setDuration:0.5];
+		[animation setDuration:0.35];
 		animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]; 
 		[animation setType:kCATransitionFade];
 		[animation setFillMode:kCAFillModeForwards];
@@ -37,5 +37,6 @@
 		self.titleView = theView; 
 	}
 }
+
 
 @end

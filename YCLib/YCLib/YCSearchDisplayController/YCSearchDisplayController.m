@@ -58,6 +58,7 @@
     if (!searchBarInNavBar) {
         [navController setNavigationBarHidden:active animated:animated];
     }else {
+        //NSLog(@"searchBar.frame = %@",NSStringFromCGRect(navigationItem.titleView.frame));
         if (active) {
             [_leftItemOfNavBar release];
             [_rightItemOfNavBar release];
