@@ -34,3 +34,4 @@
 #import "UIBars/UINavigationBar+YC.h"
 #import "UIBars/UISearchBar+YC.h"
 #import "UIBarButtonItem/UIBarButtonItem+YC.h"
+#import "UISegmentedControl/UISegmentedControl+YC.h"
