@@ -96,4 +96,8 @@
     return [self colorWithIntRed:108 intGreen:115 intBlue:122 intAlpha:255];
 }
 
++ (UIColor *)silverTexturedBackgroundColor{
+    return [UIColor colorWithPatternImage:[UIImage imageNamed:@"YCStockImageSilverTexturedBackground.png"]];
+}
+
 @end

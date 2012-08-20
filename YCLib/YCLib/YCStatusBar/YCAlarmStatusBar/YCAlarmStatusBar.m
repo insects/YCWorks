@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "YCAlarmStatusBar.h"
 
-static const NSInteger kMaskIcons        = 4;                        //覆盖4个标
+static const double kMaskIcons           = 4.5;                        //覆盖4.5个标
 
 static const CGPoint kAlarmBarOrigin     = {296-22*kMaskIcons, 0};   //电池截止到296。
 static const CGSize  kAlarmBarSize       = {22*kMaskIcons, 20};      //22个像素一个图标。覆盖5个标
@@ -18,15 +18,6 @@ static const CGPoint kBackgroundPosition  = {22*kMaskIcons/2, 10};   //anchor点
 static const CGSize  kBackgroundSize      = {22*kMaskIcons, 20};
 static const CGPoint kAlarmIconPosition   = {22*kMaskIcons, 10};     //anchor点设置在(1.0,0.5)
 static const CGSize  kAlarmIconSize       = {22, 20};
-/*
-static const CGSize  kNumberSize          = {8, 20-2};
-static const CGSize  kXContainerSize      = {3*8, 20-2};
-//static const CGPoint kXContainerOrigin    = {296-22*kMaskIcons, 0}; //下面算出来
-
-static const CGPoint kThreeNumberOrigin      = {0, 0};
-static const CGPoint kTwoNumberOrigin       = {8, 0};
-static const CGPoint kOneNumberOrigin       = {16, 0};
- */
 
 static const CGSize  kXContainerSize      = {3*8, 20-2};
 static const CGSize  kOneNumberSize       = {22, 20-2};
@@ -41,10 +32,51 @@ static const CGPoint kOneNumberOrigin     = {0, 0};
 
 static YCAlarmStatusBar *bar = nil;
 + (YCAlarmStatusBar*)shareStatusBar{
+    UIStatusBarStyle style = (bar == nil) ? UIStatusBarStyleDefault : -1;
+    return [YCAlarmStatusBar shareStatusBarWithStyle:style];
+}
+
++ (YCAlarmStatusBar *)shareStatusBarWithStyle:(UIStatusBarStyle)style{
     if (!bar) {
         bar = [[super allocWithZone:NULL] init];
     }
+    if (style != -1) //不设置
+        [bar setStyle:style];
     return bar;
+}
+
+- (void)setStyle:(UIStatusBarStyle)style{
+    _style = style;
+    
+    NSString *baseImageName = nil;
+    NSString *alarmImageName = nil;
+    switch (style) {
+        case UIStatusBarStyleBlackOpaque:
+            baseImageName = @"YCBlack_Base.png";
+            alarmImageName = @"YCWhiteOnBlackEtch_Alarm.png";
+            oneLabel.shadowColor = nil;
+            oneLabel.textColor = [UIColor colorWithWhite:0.97 alpha:0.9];
+            alarmIconLayer.opacity = 0.75;
+            break;
+        case UIStatusBarStyleBlackTranslucent:
+            baseImageName = @"YCTranslucent_Base.png";
+            alarmImageName = @"YCWhiteOnBlackEtch_Alarm.png";
+            oneLabel.shadowColor = nil;
+            oneLabel.textColor = [UIColor whiteColor];
+            oneLabel.shadowColor = nil;
+            oneLabel.textColor = [UIColor colorWithWhite:0.97 alpha:0.9];
+            alarmIconLayer.opacity = 0.75;
+            break;    
+        default:
+            baseImageName = @"YCSilver_Base.png";
+            alarmImageName = @"YCSilver_Alarm.png";
+            oneLabel.shadowColor = [UIColor whiteColor];;
+            oneLabel.textColor = [UIColor colorWithRed:100.0/255.0 green:120.0/255.0 blue:128.0/255.0 alpha:1.0];
+            alarmIconLayer.opacity = 1.0;
+            break;
+    }
+    backgroundLayer.contents = (id)[UIImage imageNamed:baseImageName].CGImage;
+    alarmIconLayer.contents = (id)[UIImage imageNamed:alarmImageName].CGImage;
 }
 
 + (id)allocWithZone:(NSZone *)zone
@@ -70,8 +102,7 @@ static YCAlarmStatusBar *bar = nil;
         backgroundLayer = [[CALayer layer] retain];
         backgroundLayer.position = kBackgroundPosition;
         backgroundLayer.bounds = (CGRect){{0,0},kBackgroundSize};
-        backgroundLayer.contents = (id)[UIImage imageNamed:@"YCSilver_Base.png"].CGImage;
-        //backgroundLayer.hidden = YES;
+        //backgroundLayer.contents = (id)[UIImage imageNamed:@"YCSilver_Base.png"].CGImage;
         [self.layer addSublayer:backgroundLayer];
         
         alarmIconLayer = [[CALayer layer] retain];
@@ -79,7 +110,7 @@ static YCAlarmStatusBar *bar = nil;
         alarmIconLayer.contentsGravity = kCAGravityResizeAspect;
         alarmIconLayer.position = kAlarmIconPosition;
         alarmIconLayer.bounds = (CGRect){{0,0},kAlarmIconSize};
-        alarmIconLayer.contents = (id)[UIImage imageNamed:@"YCSilver_Alarm.png"].CGImage;
+        //alarmIconLayer.contents = (id)[UIImage imageNamed:@"YCSilver_Alarm.png"].CGImage;
         alarmIconLayer.hidden = YES;
         [backgroundLayer addSublayer:alarmIconLayer];
 

@@ -32,7 +32,23 @@
         }
     }else {
         [self setBarStyle:barStyle];
+        if ([self respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) {
+            //bar背景
+            [self setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+            //bar title
+            self.titleTextAttributes = nil;
+        }
     }
+    
+    //如果不在显示中，title竟然不改变
+    if (self.topItem.title) {
+        NSString *titleTemp = [self.topItem.title retain];
+        self.topItem.title = nil;
+        //[self.topItem performSelector:@selector(setTitle:) withObject:titleTemp afterDelay:0.0];
+        self.topItem.title = titleTemp;
+        [titleTemp release];
+    }
+
 }
 
 - (void)layoutTitleView{
@@ -66,7 +82,6 @@
     [UIView transitionWithView:self duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
         self.topItem.titleView.frame = titleViewFrameNew;
     } completion:NULL];
-    
     
 }
 

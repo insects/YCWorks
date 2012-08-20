@@ -29,6 +29,10 @@ typedef enum {
  */
 - (id)initWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle;
 
+- (id)initBackWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle;
+
+
+////////////////////////////////////////////////////////////////////////////////////
 
 /*
  * “转换”按钮，带黑色背景。
@@ -58,5 +62,18 @@ typedef enum {
  * 重要，仅仅对“转换”按钮有效。
  */
 - (void)setSwitchTitle:(NSString *)title switchImage:(UIImage*)image;
+
+////////////////////////////////////////////////////////////////////////////////////
+
+/*
+ * “上下”按钮
+ * 5.0版本以上有效
+ */
+- (id)initUpDownWithYCStyle:(YCBarButtonItemStyle)style target:(id)target action:(SEL)action;
+
+/*
+ * 重要，仅仅对“上下”按钮有效。
+ */
+- (void)setUpDownYCStyle:(YCBarButtonItemStyle)style;
 
 @end

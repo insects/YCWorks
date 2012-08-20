@@ -19,6 +19,10 @@
         }
     }else {
         [self setBarStyle:barStyle];
+        if ([self respondsToSelector:@selector(setBackgroundImage:forToolbarPosition:barMetrics:)]) {
+            //bar背景
+            [self setBackgroundImage:nil forToolbarPosition:topOrBottom barMetrics:UIBarMetricsDefault];
+        }
     }
 }
 

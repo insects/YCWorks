@@ -97,6 +97,10 @@
         }
     }else {
         [self setBarStyle:barStyle];
+        if ([self respondsToSelector:@selector(setBackgroundImage:)]) {
+            //bar背景
+            [self setBackgroundImage:nil];
+        }
     }
 }
 

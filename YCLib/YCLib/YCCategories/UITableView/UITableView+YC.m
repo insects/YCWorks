@@ -6,6 +6,7 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
+#import "UIColor+YC.h"
 #import "UITableView+YC.h"
 
 @implementation UITableView (YC)
@@ -22,10 +23,12 @@
 
 - (void)setYCBackgroundStyle:(YCTableViewBackgroundStyle)BackgroundStyle{
     if (YCTableViewBackgroundStyleSilver == BackgroundStyle) {
-        
+        /*
         UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
         backgroundView.image = [UIImage imageNamed:@"YCGroupTableViewSilverBackgroundColor.png"];
         self.backgroundView = backgroundView;
+         */
+        self.backgroundColor = [UIColor silverTexturedBackgroundColor];
         
     }else  if (YCTableViewBackgroundStyleDefault == BackgroundStyle) {
         self.backgroundColor = [UIColor groupTableViewBackgroundColor];

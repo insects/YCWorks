@@ -18,11 +18,13 @@
     UIImage *hlBgImage = nil;
     UIImage *doneBgImage = nil;
     UIImage *doneHlBgImage = nil;
+    UIColor *tintColor = nil;
     if (YCBarButtonItemStyleSilver == barButtonItemStyle) {
         bgImage = [UIImage imageNamed:@"YCNavigationBarSilverButton.png"];
         hlBgImage = [UIImage imageNamed:@"YCNavigationBarSilverButtonPressed.png"];
         doneBgImage = [UIImage imageNamed:@"YCNavigationBarDoneButtonSilver.png"];
         doneHlBgImage = [UIImage imageNamed:@"YCNavigationBarDoneButtonPressedSilver.png"];
+        tintColor = [UIColor barButtonItemSilverTintColor];
     }
     
     
@@ -39,7 +41,7 @@
             [self setBackgroundImage:hlBgImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
             
         }else if (UIBarButtonItemStylePlain == self.style) {
-            self.tintColor = [UIColor barButtonItemSilverTintColor];
+            self.tintColor = tintColor;
         }
     }
 
@@ -67,14 +69,22 @@
     bgImage = [bgImage stretchableImageWithLeftCapWidth:14 topCapHeight:0];
     hlBgImage = [hlBgImage stretchableImageWithLeftCapWidth:14 topCapHeight:0];
     
-
+    //title = @"General";
+    
     
     if ([self respondsToSelector:@selector(setBackButtonBackgroundImage:forState:barMetrics:)]) {//5.0以上
         self = [self initWithTitle:title style:UIBarButtonItemStyleBordered target:nil action:NULL];
         if (self) {
+            CGSize size = [title sizeWithFont:[UIFont systemFontOfSize:12]];//经探测，title使用12号字体
+            NSLog(@"size.width = %f",size.width);
+            [self setBackButtonTitlePositionAdjustment:UIOffsetMake(-2.0, 0.0) forBarMetrics:UIBarMetricsDefault];
+            self.width = size.width + 2.0;//经探测，宽度应该是加22个点
+            
             [self setBackButtonBackgroundImage:bgImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
             [self setBackButtonBackgroundImage:hlBgImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-            [self setBackButtonTitlePositionAdjustment:UIOffsetMake(-1.0, 0.0) forBarMetrics:UIBarMetricsDefault];
+             
+            
+
         }
     }else 
     {//4.x
@@ -86,6 +96,55 @@
         self = [self initWithCustomView:button];
     }
  
+    return self;
+}
+
+- (id)initBackWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle{
+    title = title ? title : KTitleBack;
+    UIImage *bgImage = nil;
+    UIImage *hlBgImage = nil;
+    if (YCBarButtonItemStyleSilver == barButtonItemStyle) {
+        
+        bgImage = [UIImage imageNamed:@"YCNavigationBarSilverBack.png"];
+        hlBgImage = [UIImage imageNamed:@"YCNavigationBarSilverBackPressed.png"];
+        
+    }else if (YCBarButtonItemStyleDefault == barButtonItemStyle){
+        
+        bgImage = [UIImage imageNamed:@"YCNavigationBarDefaultBack.png"];
+        hlBgImage = [UIImage imageNamed:@"YCNavigationBarDefaultBackPressed.png"];
+        
+    }else if (YCBarButtonItemStyleBlack == barButtonItemStyle){
+        //
+    }
+    
+    bgImage = [bgImage stretchableImageWithLeftCapWidth:14 topCapHeight:0];
+    hlBgImage = [hlBgImage stretchableImageWithLeftCapWidth:14 topCapHeight:0];
+        
+    
+    if ([self respondsToSelector:@selector(setBackButtonBackgroundImage:forState:barMetrics:)]) {//5.0以上
+        self = [self initWithTitle:title style:UIBarButtonItemStyleBordered target:nil action:NULL];
+        if (self) {
+            
+            [self setBackgroundImage:bgImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+            [self setBackgroundImage:hlBgImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+             
+        
+            CGSize size = [title sizeWithFont:[UIFont systemFontOfSize:12]];//经探测，title使用12号字体
+            NSLog(@"size.width = %f",size.width);
+            //[self setTitlePositionAdjustment:UIOffsetMake(-2.0, 0.0) forBarMetrics:UIBarMetricsDefault];
+            //self.width = size.width + 22.0;//经探测，宽度应该是加22个点
+            
+        }
+    }else 
+    {//4.x
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.titleLabel.text = title;
+        [button setBackgroundImage:bgImage forState:UIControlStateNormal];
+        [button setBackgroundImage:hlBgImage forState:UIControlStateHighlighted];
+        
+        self = [self initWithCustomView:button];
+    }
+    
     return self;
 }
 
@@ -173,6 +232,67 @@
         [button setImage:image forState:UIControlStateNormal];
     if (title)
         [button setTitle:title forState:UIControlStateNormal];
+}
+
+- (id)initUpDownWithYCStyle:(YCBarButtonItemStyle)style target:(id)target action:(SEL)action{
+    
+    UISegmentedControl *sgc = [[[UISegmentedControl alloc] initWithItems:
+                                             [NSArray arrayWithObjects:
+                                              [UIImage imageNamed:@"UIButtonBarArrowUpSmall.png"],
+                                              [UIImage imageNamed:@"UIButtonBarArrowDownSmall.png"],
+                                              nil]] autorelease];
+    
+    [sgc addTarget:target action:action forControlEvents:UIControlEventValueChanged];
+    sgc.frame = CGRectMake(0, 0, 90, 30);
+    sgc.segmentedControlStyle = UISegmentedControlStyleBar;
+    sgc.momentary = YES;
+    
+    
+    self = [self initWithCustomView:sgc];
+    if (self) {
+        [self setUpDownYCStyle:style];
+    }
+    return self;
+    
+}
+
+- (void)setUpDownYCStyle:(YCBarButtonItemStyle)style{
+    
+    UIImage *bgImage = nil;
+    UIImage *hlBgImage = nil;
+    UIImage *dividerBgImage = nil;
+    UIImage *dividerHlBgImage = nil;
+    
+    if (YCBarButtonItemStyleSilver == style) {
+        bgImage = [UIImage imageNamed:@"YCSegmentBarButtonSilverMail.png"];
+        hlBgImage = [UIImage imageNamed:@"YCSegmentBarButtonHighlightedSilverMail.png"];
+        bgImage = [bgImage stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        hlBgImage = [hlBgImage stretchableImageWithLeftCapWidth:5 topCapHeight:5];
+        
+        dividerBgImage = [UIImage imageNamed:@"YCSegmentBarDividerSilverMail.png"];
+        dividerHlBgImage = [UIImage imageNamed:@"YCSegmentBarDividerHighlightedSilverMail.png"];
+        
+    }else if (YCBarButtonItemStyleBlack == style) {
+        //TODO
+    }else {
+        //YCBarButtonItemStyleDefault
+    }
+    
+    UISegmentedControl *sgc = (UISegmentedControl*)self.customView;
+    if ([sgc respondsToSelector:@selector(setBackgroundImage:forState:barMetrics:)]) {
+        //背景
+        [sgc setBackgroundImage:bgImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        //[sgc setBackgroundImage:hlBgImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+        [sgc setBackgroundImage:hlBgImage forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        [sgc setBackgroundImage:bgImage forState:UIControlStateDisabled barMetrics:UIBarMetricsDefault];
+        
+        //分割线
+        [sgc setDividerImage:dividerBgImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [sgc setDividerImage:dividerHlBgImage forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+        [sgc setDividerImage:dividerHlBgImage forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+        [sgc setDividerImage:dividerBgImage forLeftSegmentState:UIControlStateDisabled rightSegmentState:UIControlStateDisabled barMetrics:UIBarMetricsDefault];
+        
+    }
 }
 
 @end

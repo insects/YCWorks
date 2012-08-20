@@ -115,4 +115,10 @@
  **/
 + (UIColor *)barButtonItemSilverTintColor;
 
+/**
+ 银色的纹理背景的
+ 来自YCStockImageSilverTexturedBackground.png
+ **/
++ (UIColor *)silverTexturedBackgroundColor;
+
 @end
