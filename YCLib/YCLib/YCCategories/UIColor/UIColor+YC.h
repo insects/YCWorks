@@ -72,13 +72,6 @@
 //+ (UIColor *)iPadGroupTableViewBackgroundColor;
 
 /**
- 源于未文档颜色：tableCellGroupedBackgroundColor(ipad)
- 0.97, 0.97, 0.97, 1
- **/
-+ (UIColor *)iPadTableCellGroupedBackgroundColor;
-
-
-/**
  BackgroundView of tableView 背景色
  92, 99, 103, 255
  **/
@@ -120,5 +113,21 @@
  来自YCStockImageSilverTexturedBackground.png
  **/
 + (UIColor *)silverTexturedBackgroundColor;
+
+/**
+ iPhone 组cell的背景色
+ 源于未文档颜色：tableCellGroupedBackgroundColor(iPhone)
+ 1.00, 1.00, 1.00
+ **/
++ (UIColor *)iPhoneTableCellGroupedBackgroundColor;
+
+/**
+ iPad 组cell的背景色
+ 源于未文档颜色：tableCellGroupedBackgroundColor(ipad)
+ 0.97, 0.97, 0.97
+ **/
++ (UIColor *)iPadTableCellGroupedBackgroundColor;
+
+
 
 @end

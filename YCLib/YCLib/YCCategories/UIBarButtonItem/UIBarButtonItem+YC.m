@@ -47,20 +47,49 @@
 
 }
 
-- (id)initWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle{
+- (id)initCustomBackButtonWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle  target:(id)target action:(SEL)action{
     
     title = title ? title : KTitleBack;
+    UIFont *tileFont = [UIFont boldSystemFontOfSize:12.0];//经探测，title使用加粗12号字体
+    CGSize size = [title sizeWithFont:tileFont]; //计算title的宽度
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];    
+    button.titleLabel.font = tileFont;
+    [button setTitle:title forState:UIControlStateNormal];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    CGFloat buttonW = size.width + 20.0;//经探测，加20
+    buttonW = (buttonW < 48.0) ? 48.0 : buttonW;//经探测，最小48
+    button.bounds = CGRectMake(0.0, 0.0, buttonW, 30.0);//经探测，高30
+    button.titleEdgeInsets = UIEdgeInsetsMake(0.0, 4.0, 0.0, 0.0);//经探测，右偏移4
+    
+    self = [self initWithCustomView:button];
+    [self setCustomBackButtonYCStyle:barButtonItemStyle];
+    return self;
+}
+
+- (void)setCustomBackButtonYCStyle:(YCBarButtonItemStyle)barButtonItemStyle{
     UIImage *bgImage = nil;
     UIImage *hlBgImage = nil;
+    UIColor *titleColor = nil;
+    UIColor *titleShadowColor = nil;
+    CGSize   titleShadowOffset = CGSizeZero;
+    
     if (YCBarButtonItemStyleSilver == barButtonItemStyle) {
         
         bgImage = [UIImage imageNamed:@"YCNavigationBarSilverBack.png"];
         hlBgImage = [UIImage imageNamed:@"YCNavigationBarSilverBackPressed.png"];
+        titleColor = [UIColor whiteColor];
+        titleShadowColor = [UIColor darkGrayColor];
+        titleShadowOffset = CGSizeMake(0.0, -1.0);
         
     }else if (YCBarButtonItemStyleDefault == barButtonItemStyle){
         
         bgImage = [UIImage imageNamed:@"YCNavigationBarDefaultBack.png"];
         hlBgImage = [UIImage imageNamed:@"YCNavigationBarDefaultBackPressed.png"];
+        titleColor = [UIColor whiteColor];
+        titleShadowColor = [UIColor colorWithWhite:0.1 alpha:0.65];
+        titleShadowOffset = CGSizeMake(0.0, -1.0);
         
     }else if (YCBarButtonItemStyleBlack == barButtonItemStyle){
         //
@@ -69,84 +98,15 @@
     bgImage = [bgImage stretchableImageWithLeftCapWidth:14 topCapHeight:0];
     hlBgImage = [hlBgImage stretchableImageWithLeftCapWidth:14 topCapHeight:0];
     
-    //title = @"General";
-    
-    
-    if ([self respondsToSelector:@selector(setBackButtonBackgroundImage:forState:barMetrics:)]) {//5.0以上
-        self = [self initWithTitle:title style:UIBarButtonItemStyleBordered target:nil action:NULL];
-        if (self) {
-            CGSize size = [title sizeWithFont:[UIFont systemFontOfSize:12]];//经探测，title使用12号字体
-            NSLog(@"size.width = %f",size.width);
-            [self setBackButtonTitlePositionAdjustment:UIOffsetMake(-2.0, 0.0) forBarMetrics:UIBarMetricsDefault];
-            self.width = size.width + 2.0;//经探测，宽度应该是加22个点
-            
-            [self setBackButtonBackgroundImage:bgImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-            [self setBackButtonBackgroundImage:hlBgImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-             
-            
-
-        }
-    }else 
-    {//4.x
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.titleLabel.text = title;
-        [button setBackgroundImage:bgImage forState:UIControlStateNormal];
-        [button setBackgroundImage:hlBgImage forState:UIControlStateHighlighted];
-        
-        self = [self initWithCustomView:button];
-    }
- 
-    return self;
+    UIButton *button = (UIButton*)self.customView;    
+    [button setBackgroundImage:bgImage forState:UIControlStateNormal];
+    [button setBackgroundImage:hlBgImage forState:UIControlStateHighlighted];
+    [button setTitleShadowColor:titleShadowColor  forState:UIControlStateNormal];
+    button.titleLabel.shadowOffset = titleShadowOffset;
+    [button setTitleColor:titleColor forState:UIControlStateNormal];
 }
 
-- (id)initBackWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle{
-    title = title ? title : KTitleBack;
-    UIImage *bgImage = nil;
-    UIImage *hlBgImage = nil;
-    if (YCBarButtonItemStyleSilver == barButtonItemStyle) {
-        
-        bgImage = [UIImage imageNamed:@"YCNavigationBarSilverBack.png"];
-        hlBgImage = [UIImage imageNamed:@"YCNavigationBarSilverBackPressed.png"];
-        
-    }else if (YCBarButtonItemStyleDefault == barButtonItemStyle){
-        
-        bgImage = [UIImage imageNamed:@"YCNavigationBarDefaultBack.png"];
-        hlBgImage = [UIImage imageNamed:@"YCNavigationBarDefaultBackPressed.png"];
-        
-    }else if (YCBarButtonItemStyleBlack == barButtonItemStyle){
-        //
-    }
-    
-    bgImage = [bgImage stretchableImageWithLeftCapWidth:14 topCapHeight:0];
-    hlBgImage = [hlBgImage stretchableImageWithLeftCapWidth:14 topCapHeight:0];
-        
-    
-    if ([self respondsToSelector:@selector(setBackButtonBackgroundImage:forState:barMetrics:)]) {//5.0以上
-        self = [self initWithTitle:title style:UIBarButtonItemStyleBordered target:nil action:NULL];
-        if (self) {
-            
-            [self setBackgroundImage:bgImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-            [self setBackgroundImage:hlBgImage forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-             
-        
-            CGSize size = [title sizeWithFont:[UIFont systemFontOfSize:12]];//经探测，title使用12号字体
-            NSLog(@"size.width = %f",size.width);
-            //[self setTitlePositionAdjustment:UIOffsetMake(-2.0, 0.0) forBarMetrics:UIBarMetricsDefault];
-            //self.width = size.width + 22.0;//经探测，宽度应该是加22个点
-            
-        }
-    }else 
-    {//4.x
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.titleLabel.text = title;
-        [button setBackgroundImage:bgImage forState:UIControlStateNormal];
-        [button setBackgroundImage:hlBgImage forState:UIControlStateHighlighted];
-        
-        self = [self initWithCustomView:button];
-    }
-    
-    return self;
-}
+
 
 - (id)initWithSize:(CGSize)size title:(NSString *)title image:(UIImage*)image backgroundImage:(UIImage*)backgroundImage highLightBackgroundImage:(UIImage*)highLightBackgroundImage target:(id)target action:(SEL)action{
     

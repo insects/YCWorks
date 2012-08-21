@@ -22,15 +22,17 @@
 }
 
 - (void)setYCBackgroundStyle:(YCTableViewBackgroundStyle)BackgroundStyle{
+    self.backgroundView = nil;
     if (YCTableViewBackgroundStyleSilver == BackgroundStyle) {
-        /*
+        
         UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
         backgroundView.image = [UIImage imageNamed:@"YCGroupTableViewSilverBackgroundColor.png"];
         self.backgroundView = backgroundView;
-         */
-        self.backgroundColor = [UIColor silverTexturedBackgroundColor];
+         
+        //self.backgroundColor = [UIColor silverTexturedBackgroundColor];
         
     }else  if (YCTableViewBackgroundStyleDefault == BackgroundStyle) {
+        
         self.backgroundColor = [UIColor groupTableViewBackgroundColor];
     }
 }

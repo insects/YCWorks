@@ -63,9 +63,6 @@
 }
  */
 
-+ (UIColor *)iPadTableCellGroupedBackgroundColor{
-    return [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
-}
 
 + (UIColor *)tableViewBackgroundViewBackgroundColor{
     return [self colorWithIntRed:92 intGreen:99 intBlue:103 intAlpha:255];
@@ -98,6 +95,14 @@
 
 + (UIColor *)silverTexturedBackgroundColor{
     return [UIColor colorWithPatternImage:[UIImage imageNamed:@"YCStockImageSilverTexturedBackground.png"]];
+}
+
++ (UIColor *)iPhoneTableCellGroupedBackgroundColor{
+    return [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+}
+
++ (UIColor *)iPadTableCellGroupedBackgroundColor{
+    return [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1.0];
 }
 
 @end

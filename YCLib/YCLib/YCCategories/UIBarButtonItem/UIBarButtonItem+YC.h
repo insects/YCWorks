@@ -22,14 +22,18 @@ typedef enum {
  */
 - (void)setYCStyle:(YCBarButtonItemStyle)barButtonItemStyle;
 
+////////////////////////////////////////////////////////////////////////////////////
 
 /*
  * “返回”按钮，如果title 为 nil，那么使用默认“Back”
  * 4.0版本以上有效
  */
-- (id)initWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle;
+- (id)initCustomBackButtonWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle  target:(id)target action:(SEL)action;
 
-- (id)initBackWithTitle:(NSString *)title style:(YCBarButtonItemStyle)barButtonItemStyle;
+/*
+ * 重要，仅仅对“返回”按钮有效。
+ */
+- (void)setCustomBackButtonYCStyle:(YCBarButtonItemStyle)barButtonItemStyle;
 
 
 ////////////////////////////////////////////////////////////////////////////////////
