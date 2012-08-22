@@ -198,8 +198,8 @@
     
     UISegmentedControl *sgc = [[[UISegmentedControl alloc] initWithItems:
                                              [NSArray arrayWithObjects:
-                                              [UIImage imageNamed:@"UIButtonBarArrowUpSmall.png"],
-                                              [UIImage imageNamed:@"UIButtonBarArrowDownSmall.png"],
+                                              [UIImage imageNamed:@"YCButtonBarArrowUpSmall.png"],
+                                              [UIImage imageNamed:@"YCButtonBarArrowDownSmall.png"],
                                               nil]] autorelease];
     
     [sgc addTarget:target action:action forControlEvents:UIControlEventValueChanged];
