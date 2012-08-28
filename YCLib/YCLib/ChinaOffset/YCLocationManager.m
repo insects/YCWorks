@@ -22,15 +22,6 @@
 
 
 - (OffsetData*)offsetDataWithCoordinate:(CLLocationCoordinate2D)coordinate{
-    /*
-    NSInteger ilat = coordinate.latitude *10;
-    NSInteger ilng = coordinate.longitude *10;
-    NSString *lat =  [NSString stringWithFormat:@"%.1f",ilat/10.0];
-    NSString *lng =  [NSString stringWithFormat:@"%.1f",ilng/10.0];
-     
-     NSLog(@"coordinate: %@",NSStringFromCLLocationCoordinate2D(coordinate));
-     NSLog(@"OffsetData: %@",offsetData);
-     */ 
     
     @try {
         NSString *lat =  [NSString stringWithFormat:@"%.1f",coordinate.latitude];

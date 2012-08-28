@@ -6,6 +6,8 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
+#import "Supporting Files/LocalizedStringYCLib.h"
+
 #import "ChinaOffset/ChinaOffset.h"
 #import "YCAlertTableView/YCAlertTableView.h"
 #import "YCAnnotation/YCAnnotation.h"

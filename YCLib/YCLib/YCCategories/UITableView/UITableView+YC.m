@@ -25,7 +25,7 @@
     self.backgroundView = nil;
     if (YCTableViewBackgroundStyleSilver == BackgroundStyle) {
         
-        UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:self.bounds];
+        UIImageView *backgroundView = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
         backgroundView.image = [UIImage imageNamed:@"YCGroupTableViewSilverBackgroundColor.png"];
         self.backgroundView = backgroundView;
          

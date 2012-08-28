@@ -16,6 +16,12 @@
 #define KTitleEdit                                 NSLocalizedStringFromTable(@"KTitleEdit",                       @"YCLib",  @"编辑")
 #define KTitleSave                                 NSLocalizedStringFromTable(@"KTitleSave",                       @"YCLib",  @"保存")
 
+#define KTitleTest                                 NSLocalizedStringFromTable(@"KTitleTest",                       @"YCLib",  @"测试")
+#define KTitleClear                                NSLocalizedStringFromTable(@"KTitleClear",                      @"YCLib",  @"清除")
+#define KTitleSearch                               NSLocalizedStringFromTable(@"KTitleSearch",                     @"YCLib",  @"搜索")
+#define KTitleLaunch                               NSLocalizedStringFromTable(@"KTitleLaunch",                     @"YCLib",  @"启动")
+
+
 #define kALTextNeedLocationServicesTitle           NSLocalizedStringFromTable(@"kALTextNeedLocationServicesTitle", @"YCLib",  @"打开定位服务的提示框的消息标题")
 #define kALTextNeedLocationServicesBody            NSLocalizedStringFromTable(@"kALTextNeedLocationServicesBody",  @"YCLib",  @"打开定位服务的提示框的消息内容")
 

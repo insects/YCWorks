@@ -40,6 +40,7 @@
 }
 
 - (void)setActive:(BOOL)active animated:(BOOL)animated{
+    
     if (_active == active) 
         return;
     _active = active;
@@ -94,6 +95,7 @@
             [_contentsController.view addSubview:_dimmingView];
             
             //tableView
+            /*
             if (_searchBar.text && [_searchBar.text stringByTrim].length > 0) {
                 
                 if ([_delegate respondsToSelector:@selector(searchDisplayController:shouldReloadTableForSearchString:)]) {
@@ -105,6 +107,7 @@
                 }
                 
             }
+             */
             
         }else {
             [_dimmingView removeFromSuperview];
@@ -199,7 +202,8 @@
             
             [UIView transitionWithView:_contentsController.view duration:0.25 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
                 if ([_searchResultsTableView numberOfRowsInSection:0] > 0) {
-                    [_contentsController.view addSubview:_searchResultsTableView];
+                    if (_active) 
+                        [_contentsController.view addSubview:_searchResultsTableView];
                 }else {
                     [_searchResultsTableView removeFromSuperview];
                 }

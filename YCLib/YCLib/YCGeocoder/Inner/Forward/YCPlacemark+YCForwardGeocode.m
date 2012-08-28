@@ -141,9 +141,6 @@
         [placemark release];
     }
     return placemarks;
-     
-    //NSLog(@"kmlResults = %@",[kmlResults description]);
-    //return nil;
 }
 
 + (NSArray *)placemarksWithCLPacemarks:(NSArray*)clPacemarks{

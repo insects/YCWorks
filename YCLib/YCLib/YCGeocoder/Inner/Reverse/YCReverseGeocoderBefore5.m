@@ -39,7 +39,7 @@
 }
 
 - (void)dealloc{
-    NSLog(@"YCReverseGeocoderBefore5 dealloc");
+    //NSLog(@"YCReverseGeocoderBefore5 dealloc");
     if (_resverseGeocoder.querying)
         [_resverseGeocoder cancel];
     [_resverseGeocoder release];

@@ -105,11 +105,6 @@ CLRegion* YCRegionForCoordinateRegion(MKCoordinateRegion coordinateRegion){
 
 NSString* YCGetAddressString(MKPlacemark* placemark){
     
-    NSLog(@"placemark.description = %@",[placemark description]);
-    NSLog(@"========================================================================");
-    NSLog(@"placemark.addressDictionary = %@",[placemark.addressDictionary description]);
-    NSLog(@"========================================================================");
-    
 	
 	NSString * thoroughfare = placemark.thoroughfare; //街道
 	NSString * subthoroughfare = placemark.subThoroughfare;//街道号

@@ -165,7 +165,7 @@
 }
 
 - (void)dealloc{    
-    NSLog(@"YCPlacemark dealloc");
+    //NSLog(@"YCPlacemark dealloc");
     [_placemark release];
     [_addressDictionary release];
     [_separater release];

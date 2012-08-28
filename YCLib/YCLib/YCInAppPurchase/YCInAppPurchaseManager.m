@@ -40,27 +40,6 @@ NSString *YCInAppPurchaseManagerTransactionCancelledNotification = @"YCInAppPurc
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
-	/*
-    NSArray *products = response.products;
-	
-	SKProduct *proUpgradeProduct = [products count] == 1 ? [products objectAtIndex:0] : nil;
-    
-	if (proUpgradeProduct)
-    {
-        NSLog(@"Product title: %@" , proUpgradeProduct.localizedTitle);
-        NSLog(@"Product description: %@" , proUpgradeProduct.localizedDescription);
-        NSLog(@"Product price: %@" , proUpgradeProduct.price);
-        NSLog(@"Product id: %@" , proUpgradeProduct.productIdentifier);
-    }
-    
-    for (NSString *invalidProductId in response.invalidProductIdentifiers)
-    {
-        NSLog(@"Invalid product id: %@" , invalidProductId);
-    }
-	 */
-	 
-        
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:YCInAppPurchaseManagerProductsFetchedNotification object:self userInfo:nil];
 }
 

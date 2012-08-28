@@ -116,8 +116,8 @@
         [self addTarget:self action:@selector(selfPressed:) forControlEvents:UIControlEventTouchUpInside];
         _promptViewStatus = -1;
         
-        self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.75];
-        self.layer.cornerRadius = 10.0;
+        self.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.65];
+        self.layer.cornerRadius = 8.0;
         self.autoresizesSubviews = YES;
         
         CGRect iconViewFrame = (CGRect){{0,0},{kIconViewW,kIconViewH}};
@@ -129,10 +129,10 @@
         
         CGRect textLabelFrame = (CGRect){{0,0},{220,1000.0}};
         _textLabel = [[UILabel alloc] initWithFrame:textLabelFrame];
-        _textLabel.numberOfLines = 10;//最多5行
+        _textLabel.numberOfLines = 10;//最多10行
         _textLabel.textAlignment = UITextAlignmentCenter;
         _textLabel.textColor = [UIColor whiteColor];
-        _textLabel.font = [UIFont boldSystemFontOfSize:22.0];
+        _textLabel.font = [UIFont boldSystemFontOfSize:20.0];
         //_textLabel.adjustsFontSizeToFitWidth = YES;
         //_textLabel.minimumFontSize = 16.0;
         _textLabel.backgroundColor = [UIColor clearColor];
@@ -200,7 +200,7 @@
 }
 
 - (void)dealloc{
-    NSLog(@"YCPromptView dealloc");
+    //NSLog(@"YCPromptView dealloc");
     [_window release];
     [_lastKeyWindow release];
     [_iconView release];

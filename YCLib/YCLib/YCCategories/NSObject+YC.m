@@ -53,7 +53,6 @@
     NSMutableArray *removingArray = [NSMutableArray array];
     for (YCPair *aPair in [NSObject _blockOperationPairs]) {
         if ([(NSString *)aPair.key isEqualToString:key]){
-            NSLog(@"(NSString *)aPair.key isEqualToString:key]");
             [removingArray addObject:aPair];
         }
     }

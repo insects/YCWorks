@@ -27,45 +27,13 @@
 		if ([db open]) {
 			[db setShouldCacheStatements:YES];
 		}else{
-			NSLog(@"Failed to open database.");
+			//NSLog(@"Failed to open database.");
 			success = NO;
 		}
 	}
 	
 	return success;
      
-    /*
-    BOOL success;
-	NSError *error;
-	NSFileManager *fm = [NSFileManager defaultManager];
-	NSArray  *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDirectory = [paths objectAtIndex:0];
-	NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:@"offset.db"];
-	
-	success = [fm fileExistsAtPath:writableDBPath];
-	
-	if(!success){
-		NSString *defaultDBPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"offset.db"];
-		NSLog(@"%@",defaultDBPath);
-		success = [fm copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-		if(!success){
-			NSLog(@"error: %@", [error localizedDescription]);
-		}
-		success = YES;
-	}
-	
-	if(success){
-		db = [[FMDatabase databaseWithPath:writableDBPath] retain];
-		if ([db open]) {
-			[db setShouldCacheStatements:YES];
-		}else{
-			NSLog(@"Failed to open database.");
-			success = NO;
-		}
-	}
-     */
-	
-	return success;
 }
 
 
