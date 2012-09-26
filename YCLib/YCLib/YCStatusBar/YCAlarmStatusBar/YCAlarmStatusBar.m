@@ -68,11 +68,24 @@ static YCAlarmStatusBar *bar = nil;
             alarmIconLayer.opacity = 0.75;
             break;    
         default:
-            baseImageName = @"YCSilver_Base.png";
-            alarmImageName = @"YCSilver_Alarm.png";
-            oneLabel.shadowColor = [UIColor whiteColor];;
-            oneLabel.textColor = [UIColor colorWithRed:100.0/255.0 green:120.0/255.0 blue:128.0/255.0 alpha:1.0];
-            alarmIconLayer.opacity = 1.0;
+            
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] > 5.9){//6.x 默认状态栏的颜色改变了
+                baseImageName = @"NavBar6_Base.png";
+                alarmImageName = @"YCWhiteOnBlackEtch_Alarm.png";
+                oneLabel.shadowColor = [UIColor lightGrayColor];
+                oneLabel.shadowOffset = CGSizeMake(0, -1);
+                oneLabel.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+                alarmIconLayer.opacity = 0.5;
+                
+            }else {
+                baseImageName = @"YCSilver_Base.png";
+                alarmImageName = @"YCSilver_Alarm.png";
+                oneLabel.shadowColor = [UIColor whiteColor];
+                oneLabel.textColor = [UIColor colorWithRed:100.0/255.0 green:120.0/255.0 blue:128.0/255.0 alpha:1.0];
+                alarmIconLayer.opacity = 1.0;
+
+            }
+            
             break;
     }
     backgroundLayer.contents = (id)[UIImage imageNamed:baseImageName].CGImage;

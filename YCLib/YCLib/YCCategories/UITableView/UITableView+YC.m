@@ -22,19 +22,38 @@
 }
 
 - (void)setYCBackgroundStyle:(YCTableViewBackgroundStyle)BackgroundStyle{
-    self.backgroundView = nil;
-    if (YCTableViewBackgroundStyleSilver == BackgroundStyle) {
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] > 5.9){
+        //6.x的组背景色是透明的，它的颜色是背景view的颜色
+        if (YCTableViewBackgroundStyleSilver == BackgroundStyle) {
+            
+            UIImageView *backgroundView = [[[UIImageView alloc] initWithFrame:self.backgroundView.bounds] autorelease];
+            backgroundView.image = [UIImage imageNamed:@"YCGroupTableViewSilverBackgroundColor.png"];
+            backgroundView.tag = 6;
+            [self.backgroundView addSubview:backgroundView];
+            
+        }else  if (YCTableViewBackgroundStyleDefault == BackgroundStyle) {
+            UIImageView *backgroundView = (UIImageView*)[self.backgroundView viewWithTag:6];
+            [backgroundView removeFromSuperview];
+        }
         
-        UIImageView *backgroundView = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
-        backgroundView.image = [UIImage imageNamed:@"YCGroupTableViewSilverBackgroundColor.png"];
-        self.backgroundView = backgroundView;
-         
-        //self.backgroundColor = [UIColor silverTexturedBackgroundColor];
-        
-    }else  if (YCTableViewBackgroundStyleDefault == BackgroundStyle) {
-        
-        self.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    }else{
+        self.backgroundView = nil;
+        if (YCTableViewBackgroundStyleSilver == BackgroundStyle) {
+            
+            UIImageView *backgroundView = [[[UIImageView alloc] initWithFrame:self.bounds] autorelease];
+            backgroundView.image = [UIImage imageNamed:@"YCGroupTableViewSilverBackgroundColor.png"];
+            self.backgroundView = backgroundView;
+            
+            //self.backgroundColor = [UIColor silverTexturedBackgroundColor];
+            
+        }else  if (YCTableViewBackgroundStyleDefault == BackgroundStyle) {
+            
+            self.backgroundColor = [UIColor groupTableViewBackgroundColor];
+        }
     }
+    
+
 }
 
 @end
